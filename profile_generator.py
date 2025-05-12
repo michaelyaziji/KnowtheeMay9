@@ -16,7 +16,7 @@ client = OpenAI(api_key=api_key)
 
 class ProfileGenerator:
     def __init__(self):
-        self.system_prompt = """You are a world-class expert in leadership psychology, organizational behavior, and executive development. You specialize in synthesizing diverse data sources—such as personality assessments, 360 feedback, coaching notes, performance reviews, and CVs—into insightful, psychologically sophisticated leadership profiles. Your goal is to produce actionable insights, grounded in evidence, that support individual growth and organizational fit. Always cite the data source behind your claims and remain both rigorous and humanistic in tone."""
+        self.system_prompt = """You are a world-class expert in leadership psychology, organizational behavior, and executive development. You specialize in synthesizing diverse data sources—such as personality assessments, 360 feedback, coaching notes, performance reviews, and CVs—into insightful, psychologically sophisticated leadership profiles. Your goal is to produce actionable insights, grounded in evidence, that support individual growth and organizational fit. Always cite the data source behind your claims and remain both rigorous and humanistic in tone. Never, under any circumstances(!!), cite documents that you were not provided by the user.  """
 
     def generate_profile(self, document_chunks: List[str], metadata: List[dict] = None) -> str:
         """Generate a leadership profile from document chunks and optional metadata, returning structured JSON output."""
