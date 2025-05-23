@@ -1,4 +1,4 @@
-import PyPDF2
+import pypdf
 from docx import Document
 import re
 import os
@@ -33,6 +33,8 @@ class DocumentProcessor:
             return self._extract_pdf_text(file_path)
         elif file_path.lower().endswith('.docx'):
             return self._extract_docx_text(file_path)
+        elif file_path.lower().endswith('.txt'):
+            return self._extract_txt_text(file_path)
         else:
             raise ValueError("Unsupported file format")
     
@@ -40,7 +42,7 @@ class DocumentProcessor:
         """Extract text from PDF file."""
         text = ""
         with open(file_path, 'rb') as file:
-            pdf_reader = PyPDF2.PdfReader(file)
+            pdf_reader = pypdf.PdfReader(file)
             for page in pdf_reader.pages:
                 text += page.extract_text() + "\n"
         return text
@@ -49,6 +51,11 @@ class DocumentProcessor:
         """Extract text from DOCX file."""
         doc = Document(file_path)
         return "\n".join([paragraph.text for paragraph in doc.paragraphs])
+    
+    def _extract_txt_text(self, file_path):
+        """Extract text from TXT file."""
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return file.read()
     
     def _remove_headers_footers(self, text):
         """Remove common header and footer patterns."""
